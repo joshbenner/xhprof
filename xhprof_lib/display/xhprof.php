@@ -42,7 +42,7 @@ include_once XHPROF_LIB_ROOT . '/utils/xhprof_runs.php';
  * Our coding convention disallows relative paths in hrefs.
  * Get the base URL path from the SCRIPT_NAME.
  */
-$base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), "/");
+$base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), "/\\");
 
 
 /**
@@ -600,7 +600,7 @@ function profiler_report ($url_params,
 
   // lookup function typeahead form
 
-  
+
 
 /**
   echo
@@ -802,12 +802,12 @@ function print_flat_data($url_params, $title, $flat_data, $sort, $run1, $run2, $
                                        http_build_query(xhprof_array_set($url_params,
                                                                          'all', 1)));
   }
-  
+
   //Find top $n requests
   $data_copy = $flat_data;
   $data_copy = _aggregateCalls($data_copy, null, $run2);
   usort($data_copy, 'sortWT');
-  
+
   $iterations = 0;
   $colors = array('#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92', '#EAFEBB', '#FEB4B1', '#2B6979', '#E9D6FE', '#FECDA3', '#FED980');
   foreach($data_copy as $datapoint)
@@ -864,8 +864,8 @@ function full_report($url_params, $symbol_tab, $sort, $run1, $run2, $links) {
       global $xhprof_runs_impl;
     include "../xhprof_lib/templates/single_run_header_block.phtml";
   }
-  
-  
+
+
   //echo xhprof_render_actions($links);
 
 
@@ -873,7 +873,7 @@ function full_report($url_params, $symbol_tab, $sort, $run1, $run2, $links) {
   foreach ($symbol_tab as $symbol => $info) {
     $tmp = $info;
     $tmp["fn"] = $symbol;
-    
+
     $flat_data[] = $tmp;
   }
   usort($flat_data, 'sort_cbk');
@@ -1369,7 +1369,7 @@ function displayXHProfReport($xhprof_runs_impl, $url_params, $source,
     //
     $runs_array = explode(",", $run);
 
-    if (count($runs_array) == 1) 
+    if (count($runs_array) == 1)
     {
         global $run_details;
         list($xhprof_data, $run_details) = $xhprof_runs_impl->get_run($runs_array[0],
